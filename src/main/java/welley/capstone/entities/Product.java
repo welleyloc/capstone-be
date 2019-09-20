@@ -9,20 +9,14 @@ public class Product {
 
     @Id
     private Integer id;
-//    @Column(name = "productname")
     private String productName;
-//    @Column(name = "supplier")
-    private int supplier;
-//    @Column(name = "category")
-    private int category;
-//    @Column(name = "availability")
+    private String supplier;
+    private String category;
     private int availability;
-//    @Column(name = "fullprice")
     private double fullPrice;
-//    @Column(name = "saleprice")
     private double salePrice;
 
-    public Product(int id, String productName, int supplier, int category, int availability, double fullPrice, double salePrice) {
+    public Product(int id, String productName, String supplier, String category, int availability, double fullPrice, double salePrice) {
         this.id = id;
         this.productName = productName;
         this.supplier = supplier;
@@ -33,6 +27,7 @@ public class Product {
     }
 
     public Product() {
+
     }
 
     public int getId() {
@@ -51,11 +46,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -67,13 +62,11 @@ public class Product {
         this.availability = availability;
     }
 
-    public int getSupplier() {
+    public String getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(int supplier) {
-        this.supplier = supplier;
-    }
+    public void setSupplier(String supplier) { this.supplier = supplier; }
 
     public double getFullPrice() {
         return fullPrice;

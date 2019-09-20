@@ -10,11 +10,9 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +32,7 @@ public class SpringBatchConfig {
         Step step = stepBuilderFactory.get("Products-File-Load")
                 .<Product, Product>chunk(100)
                 .reader(itemReader)
-//                .processor(itemProcessor)
+                .processor(itemProcessor)
                 .writer(itemWriter)
                 .build();
 

@@ -16,7 +16,7 @@ public class Writer implements ItemWriter<Product> {
 
     @Override
     public void write(List<? extends Product> products) throws Exception {
-        System.out.println("Data saved for products: " + products);
+        System.out.println("Data saved: " + products);
         productRepository.saveAll(products);
 
     }
