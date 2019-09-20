@@ -14,6 +14,7 @@ import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,29 +44,22 @@ public class SpringBatchConfig {
                 .build();
     }
 
-    // reader
     @Bean
     public FlatFileItemReader<Product> itemReader(@Value("${input}") Resource resource) {
         FlatFileItemReader<Product> flatFileItemReader = new FlatFileItemReader<>();
         flatFileItemReader.setResource(resource);
         flatFileItemReader.setName("Product-File-Reader");
         flatFileItemReader.setLinesToSkip(1); // skips the header
-        flatFileItemReader.setLineMapper(lineMapper());
+        flatFileItemReader.setLineMapper(new DefaultLineMapper<Product>() {{
+            setLineTokenizer(new DelimitedLineTokenizer() {{
+                setNames(new String[]{"id", "productName", "category", "fullPrice",
+                        "salePrice", "availability", "supplier"});
+            }});
+            setFieldSetMapper(new BeanWrapperFieldSetMapper<Product>() {{
+                setTargetType(Product.class);
+            }});
+        }});
         return flatFileItemReader;
     }
-
-    private LineMapper<Product> lineMapper() {
-        DefaultLineMapper<Product> defaultLineMapper = new DefaultLineMapper<>();
-        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
-        lineTokenizer.setDelimiter(",");
-        lineTokenizer.setStrict(false);
-//        lineTokenizer.setNames(new String[]{"id", "productName", "category", "fullPrice",
-//                "salePrice", "availability", "supplier"});
-
-        BeanWrapperFieldSetMapper<Product> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
-        fieldSetMapper.setTargetType(Product.class);
-        defaultLineMapper.setLineTokenizer(lineTokenizer);
-
-        return defaultLineMapper;
-    }
 }
+
