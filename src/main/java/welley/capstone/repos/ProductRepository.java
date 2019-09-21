@@ -1,4 +1,4 @@
-package welley.capstone.dal;
+package welley.capstone.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import welley.capstone.entities.Product;

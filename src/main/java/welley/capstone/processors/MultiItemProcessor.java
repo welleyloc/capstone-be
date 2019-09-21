@@ -13,10 +13,11 @@ import java.util.List;
 public class MultiItemProcessor {
 
     @Bean
-    public CompositeItemProcessor<Product, Product> combineProcess() throws Exception {
+    public CompositeItemProcessor<Product, Product> combineProcessors() throws Exception {
         List<ItemProcessor<Product, Product>> delegates = new ArrayList<>();
         delegates.add(new SupplierProcessor());
         delegates.add(new CategoryProcessor());
+        delegates.add(new PriceProcessor());
 
         CompositeItemProcessor<Product, Product> compositeItemProcessor = new CompositeItemProcessor<>();
         compositeItemProcessor.setDelegates(delegates);

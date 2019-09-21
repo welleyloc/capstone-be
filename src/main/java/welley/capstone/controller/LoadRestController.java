@@ -33,7 +33,7 @@ public class LoadRestController {
 
         System.out.println("JobExecution Status: " + jobExecution.getStatus());
 
-        System.out.println("Batch is running...");
+        System.out.println("Spring Batch is running...");
         while(jobExecution.isRunning()) {
             System.out.println("...");
         }

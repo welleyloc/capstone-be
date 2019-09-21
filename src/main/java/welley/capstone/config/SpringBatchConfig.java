@@ -26,12 +26,12 @@ public class SpringBatchConfig {
 
     @Bean
     public Job job(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory,
-                   ItemReader<Product> itemReader, CompositeItemProcessor compositeItemProcessor,
+                   ItemReader<Product> productItemReader, CompositeItemProcessor compositeItemProcessor,
                    ItemWriter<Product> itemWriter) {
 
         Step step = stepBuilderFactory.get("Products-File-Load")
                 .<Product, Product>chunk(100)
-                .reader(itemReader)
+                .reader(productItemReader)
                 .processor(compositeItemProcessor)
                 .writer(itemWriter)
                 .build();
@@ -43,7 +43,7 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    public FlatFileItemReader<Product> itemReader(@Value("${input1}") Resource resource) {
+    public FlatFileItemReader<Product> productItemReader(@Value("${input1}") Resource resource) {
         FlatFileItemReader<Product> productFileItemReader = new FlatFileItemReader<>();
         productFileItemReader.setResource(resource);
         productFileItemReader.setName("Product-File-Reader");

@@ -1,6 +1,7 @@
 package welley.capstone.processors;
 
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.file.FlatFileItemReader;
 import welley.capstone.entities.Product;
 
 import java.util.HashMap;

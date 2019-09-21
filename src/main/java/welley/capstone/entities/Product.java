@@ -8,15 +8,15 @@ import javax.persistence.Id;
 public class Product {
 
     @Id
-    private Integer id;
+    private int id;
     private String productName;
     private String supplier;
     private String category;
-    private int availability;
+    private String availability;
     private double fullPrice;
     private double salePrice;
 
-    public Product(int id, String productName, String supplier, String category, int availability, double fullPrice, double salePrice) {
+    public Product(int id, String productName, String supplier, String category, String availability, double fullPrice, double salePrice) {
         this.id = id;
         this.productName = productName;
         this.supplier = supplier;
@@ -54,11 +54,11 @@ public class Product {
         this.category = category;
     }
 
-    public int getAvailability() {
+    public String getAvailability() {
         return availability;
     }
 
-    public void setAvailability(int availability) {
+    public void setAvailability(String availability) {
         this.availability = availability;
     }
 
