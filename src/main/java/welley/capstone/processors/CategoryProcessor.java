@@ -1,4 +1,4 @@
-package welley.capstone.batch;
+package welley.capstone.processors;
 
 import org.springframework.batch.item.ItemProcessor;
 import welley.capstone.entities.Product;

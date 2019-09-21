@@ -6,7 +6,6 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -44,12 +43,12 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    public FlatFileItemReader<Product> itemReader(@Value("${input}") Resource resource) {
-        FlatFileItemReader<Product> flatFileItemReader = new FlatFileItemReader<>();
-        flatFileItemReader.setResource(resource);
-        flatFileItemReader.setName("Product-File-Reader");
-        flatFileItemReader.setLinesToSkip(1); // skips the header
-        flatFileItemReader.setLineMapper(new DefaultLineMapper<Product>() {{
+    public FlatFileItemReader<Product> itemReader(@Value("${input1}") Resource resource) {
+        FlatFileItemReader<Product> productFileItemReader = new FlatFileItemReader<>();
+        productFileItemReader.setResource(resource);
+        productFileItemReader.setName("Product-File-Reader");
+        productFileItemReader.setLinesToSkip(1); // skips the header
+        productFileItemReader.setLineMapper(new DefaultLineMapper<Product>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
                 setNames(new String[]{"id", "productName", "category", "fullPrice",
                         "salePrice", "availability", "supplier"});
@@ -58,7 +57,8 @@ public class SpringBatchConfig {
                 setTargetType(Product.class);
             }});
         }});
-        return flatFileItemReader;
+        return productFileItemReader;
     }
+
 }
 

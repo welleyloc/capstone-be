@@ -1,9 +1,9 @@
-package welley.capstone.batch;
+package welley.capstone.writers;
 
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import welley.capstone.dao.ProductRepository;
+import welley.capstone.dal.ProductRepository;
 import welley.capstone.entities.Product;
 
 import java.util.List;
