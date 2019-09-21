@@ -15,7 +15,7 @@ import java.util.Map;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RestController
-@RequestMapping("/load")
+@RequestMapping("/load-batch")
 public class LoadRestController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class LoadRestController {
         JobParameters parameters = new JobParameters(timeMap);
         JobExecution jobExecution = jobLauncher.run(job, parameters);
 
-        System.out.println("JobExecution: " + jobExecution.getStatus());
+        System.out.println("JobExecution Status: " + jobExecution.getStatus());
 
         System.out.println("Batch is running...");
         while(jobExecution.isRunning()) {

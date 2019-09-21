@@ -1,7 +1,6 @@
 package welley.capstone.batch;
 
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.stereotype.Component;
 import welley.capstone.entities.Product;
 
 import java.util.HashMap;

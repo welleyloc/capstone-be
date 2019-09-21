@@ -1,13 +1,13 @@
 package welley.capstone.batch;
 
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import welley.capstone.entities.Product;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
 public class SupplierProcessor implements ItemProcessor<Product, Product> {
 
     private static final Map<String, String> SUPPLIERS = new HashMap<>();

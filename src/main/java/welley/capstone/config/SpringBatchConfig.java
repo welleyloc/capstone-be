@@ -13,6 +13,7 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,13 +27,13 @@ public class SpringBatchConfig {
 
     @Bean
     public Job job(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory,
-                   ItemReader<Product> itemReader, ItemProcessor<Product, Product> itemProcessor,
+                   ItemReader<Product> itemReader, CompositeItemProcessor compositeItemProcessor,
                    ItemWriter<Product> itemWriter) {
 
         Step step = stepBuilderFactory.get("Products-File-Load")
                 .<Product, Product>chunk(100)
                 .reader(itemReader)
-                .processor(itemProcessor)
+                .processor(compositeItemProcessor)
                 .writer(itemWriter)
                 .build();
 
