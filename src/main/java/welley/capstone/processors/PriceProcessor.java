@@ -13,9 +13,9 @@ public class PriceProcessor implements ItemProcessor<Product, Product> {
     @Override
     public Product process(Product product) throws Exception {
         if(product.getSalePrice() > product.getFullPrice()) {
-            double temp = product.getSalePrice();
+            double tempStorage = product.getSalePrice();
             product.setSalePrice(product.getFullPrice());
-            product.setFullPrice(temp);
+            product.setFullPrice(tempStorage);
         }
         return product;
     }

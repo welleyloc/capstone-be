@@ -15,8 +15,9 @@ public class Product {
     private String availability;
     private double fullPrice;
     private double salePrice;
+    private double discountPercent;
 
-    public Product(int id, String productName, String supplier, String category, String availability, double fullPrice, double salePrice) {
+    public Product(int id, String productName, String supplier, String category, String availability, double fullPrice, double salePrice, double discountPercent) {
         this.id = id;
         this.productName = productName;
         this.supplier = supplier;
@@ -24,6 +25,9 @@ public class Product {
         this.availability = availability;
         this.fullPrice = fullPrice;
         this.salePrice = salePrice;
+        this.discountPercent = discountPercent;
+
+
     }
 
     public Product() {
@@ -84,16 +88,25 @@ public class Product {
         this.salePrice = salePrice;
     }
 
+    public double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
                 ", productName='" + productName + '\'' +
                 ", supplier='" + supplier + '\'' +
-                ", category=" + category +
-                ", availability=" + availability +
+                ", category='" + category + '\'' +
+                ", availability='" + availability + '\'' +
                 ", fullPrice=" + fullPrice +
                 ", salePrice=" + salePrice +
+                ", discountPercent=" + discountPercent +
                 '}';
     }
 }
