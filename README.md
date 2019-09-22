@@ -5,7 +5,7 @@ This is part 1 of my final project created for educational purposes only.
 Project completion ~9-10 days for both Spring back-end and Angular front-end.
 
 #### Services used
-* Sprint Boot, Batch, Data JPA, REST
+* Sprint Boot, Batch, Data JPA, MVC, REST
 * H2-console for development
 * Maven
 * Postman

@@ -12,10 +12,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    @Query("SELECT a FROM Product a WHERE a.category=:category")
-    List<Product> findByCategory(@Param("category") String category);
-
-    @Query("SELECT a FROM Product a WHERE a.category=:category and a.availability=:availability")
-    List<Product> findByCategoryAndAvailability(@Param("category") String category, @Param("availability") String availability);
-
+    @Query("SELECT a FROM Product a WHERE a.category=:category or a.availability=:availability")
+    List<Product> findByCategoryStock(@Param("category") String category, @Param("availability") String availability);
 }
