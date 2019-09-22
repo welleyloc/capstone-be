@@ -13,7 +13,8 @@ Project completion ~9-10 days for both Spring back-end and Angular front-end.
 
 (Maybe for later: Spring Security)
 
-#### Work flow
+#### Work flow 
+(Full commit history under src folder)
 
 1. Set up Spring Batch base code with reader/writer to create H2 database/console from main spreadsheet and a REST controller.
 

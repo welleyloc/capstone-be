@@ -1,7 +1,6 @@
 package welley.capstone.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import welley.capstone.entities.Product;
 import welley.capstone.repos.ProductRepository;
