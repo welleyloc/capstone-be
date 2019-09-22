@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RestController
-@RequestMapping("/load-batch")
-public class LoadRestController {
+@RequestMapping("/batch-status")
+public class ProductRestController {
 
     @Autowired
     JobLauncher jobLauncher;
@@ -26,17 +24,11 @@ public class LoadRestController {
 
     @GetMapping
     public BatchStatus load() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
-        Map<String, JobParameter> timeMap = new HashMap<>();
-        timeMap.put("time", new JobParameter(System.currentTimeMillis()));
-        JobParameters parameters = new JobParameters(timeMap);
+        JobParameters parameters = new JobParameters();
         JobExecution jobExecution = jobLauncher.run(job, parameters);
 
-        System.out.println("JobExecution Status: " + jobExecution.getStatus());
-
+        System.out.println("Status: " + jobExecution.getStatus());
         System.out.println("Spring Batch is running...");
-        while(jobExecution.isRunning()) {
-            System.out.println("...");
-        }
 
         return jobExecution.getStatus();
     }

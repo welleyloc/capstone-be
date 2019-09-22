@@ -12,12 +12,12 @@ public class Product {
     private String productName;
     private String supplier;
     private String category;
-    private String availability;
+    private int availability;
     private double fullPrice;
     private double salePrice;
     private double discountPercent;
 
-    public Product(int id, String productName, String supplier, String category, String availability, double fullPrice, double salePrice, double discountPercent) {
+    public Product(int id, String productName, String supplier, String category, int availability, double fullPrice, double salePrice, double discountPercent) {
         this.id = id;
         this.productName = productName;
         this.supplier = supplier;
@@ -58,11 +58,11 @@ public class Product {
         this.category = category;
     }
 
-    public String getAvailability() {
+    public int getAvailability() {
         return availability;
     }
 
-    public void setAvailability(String availability) {
+    public void setAvailability(int availability) {
         this.availability = availability;
     }
 
