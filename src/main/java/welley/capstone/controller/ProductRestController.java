@@ -7,13 +7,15 @@ import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteExcep
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import welley.capstone.entities.Product;
+import welley.capstone.repos.ProductRepository;
+
+import java.util.List;
 
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RestController
-@RequestMapping("/batch-status")
 public class ProductRestController {
 
     @Autowired
@@ -22,7 +24,10 @@ public class ProductRestController {
     @Autowired
     Job job;
 
-    @GetMapping
+    @Autowired
+    ProductRepository productRepository;
+
+    @GetMapping("batch-status")
     public BatchStatus load() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         JobParameters parameters = new JobParameters();
         JobExecution jobExecution = jobLauncher.run(job, parameters);
@@ -32,4 +37,12 @@ public class ProductRestController {
 
         return jobExecution.getStatus();
     }
+
+    @GetMapping("/dashboard")
+    public List<Product> getDashboard() {
+        List<Product> products = productRepository.findAll();
+        return products;
+    }
+
+
 }

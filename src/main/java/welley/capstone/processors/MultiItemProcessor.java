@@ -19,6 +19,7 @@ public class MultiItemProcessor {
         delegates.add(new CategoryProcessor());
         delegates.add(new PriceProcessor());
         delegates.add(new DiscountProcessor());
+        delegates.add(new AvailabilityProcessor());
 
         CompositeItemProcessor<Product, Product> compositeItemProcessor = new CompositeItemProcessor<>();
         compositeItemProcessor.setDelegates(delegates);

@@ -1,6 +1,5 @@
 package welley.capstone.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -12,12 +11,12 @@ public class Product {
     private String productName;
     private String supplier;
     private String category;
-    private int availability;
+    private String availability;
     private double fullPrice;
     private double salePrice;
     private double discountPercent;
 
-    public Product(int id, String productName, String supplier, String category, int availability, double fullPrice, double salePrice, double discountPercent) {
+    public Product(int id, String productName, String supplier, String category, String availability, double fullPrice, double salePrice, double discountPercent) {
         this.id = id;
         this.productName = productName;
         this.supplier = supplier;
@@ -58,11 +57,11 @@ public class Product {
         this.category = category;
     }
 
-    public int getAvailability() {
+    public String getAvailability() {
         return availability;
     }
 
-    public void setAvailability(int availability) {
+    public void setAvailability(String availability) {
         this.availability = availability;
     }
 

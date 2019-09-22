@@ -12,40 +12,39 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private ProductRepository repository;
+    private ProductRepository productRepository;
 
 
     @Override
     public Product saveProduct(Product product) {
 
-        return repository.save(product);
+        return productRepository.save(product);
     }
 
     @Override
     public Product updateProduct(Product product) {
 
-        return repository.save(product);
+        return productRepository.save(product);
     }
 
     @Override
     public void deleteProduct(Product product) {
 
-        repository.delete(product);
+        productRepository.delete(product);
     }
 
     @Override
     public Product getProductById(int id) {
 
-        return repository.findById(id).get();
+        return productRepository.findById(id).get();
     }
 
     @Override
     public List<Product> getAllProducts() {
-
-        return (List<Product>)repository.findAll();
+//        List<Product> products = new ArrayList<>();
+////        productRepository.findAll().forEach(products::add);
+        List<Product> products = productRepository.findAll();
+        return products;
     }
-
-
-
 
 }
