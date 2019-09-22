@@ -16,8 +16,4 @@ public interface ProductService {
 
     public List<Product> getAllProducts();
 
-//    public List<Product> getByCategory();
-//
-//    public List<Product> getByCategoryAndAvailability();
-
 }

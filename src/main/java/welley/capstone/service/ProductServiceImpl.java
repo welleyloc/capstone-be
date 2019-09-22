@@ -1,6 +1,7 @@
 package welley.capstone.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import welley.capstone.entities.Product;
 import welley.capstone.repos.ProductRepository;
@@ -41,10 +42,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-//        List<Product> products = new ArrayList<>();
-////        productRepository.findAll().forEach(products::add);
         List<Product> products = productRepository.findAll();
         return products;
     }
+
 
 }
