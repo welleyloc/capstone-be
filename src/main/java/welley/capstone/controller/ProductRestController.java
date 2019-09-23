@@ -11,12 +11,12 @@ import welley.capstone.entities.Product;
 import welley.capstone.repos.ProductRepository;
 import welley.capstone.service.ProductService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProductRestController {
 
     @Autowired
@@ -48,7 +48,7 @@ public class ProductRestController {
         return products;
     }
 
-    @GetMapping("/category")
+    @GetMapping("/categoryStock")
     public List<Product> sortByCategoryStock(@RequestParam(required=false, defaultValue = "") String category, @RequestParam(required=false, defaultValue = "") String availability) {
         List<Product> products = productRepository.findByCategoryStock(category, availability);
         return products;
