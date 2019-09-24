@@ -43,7 +43,9 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    public FlatFileItemReader<Product> productItemReader(@Value("${input1}") Resource resource) {
+    public FlatFileItemReader<Product> productItemReader(
+            @Value("${input1}") Resource resource) {
+
         FlatFileItemReader<Product> productFileItemReader = new FlatFileItemReader<>();
         productFileItemReader.setResource(resource);
         productFileItemReader.setName("Product-File-Reader");

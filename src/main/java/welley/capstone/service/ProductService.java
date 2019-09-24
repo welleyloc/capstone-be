@@ -16,4 +16,8 @@ public interface ProductService {
 
     public List<Product> getAllProducts();
 
+    public List<Product> sortC(String category);
+
+    public List<Product> sortCA(String category, String availability);
+
 }

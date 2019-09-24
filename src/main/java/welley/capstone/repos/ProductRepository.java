@@ -1,6 +1,5 @@
 package welley.capstone.repos;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,6 +13,10 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    @Query("SELECT a FROM Product a WHERE a.category=:category or a.availability=:availability")
-    List<Product> findByCategoryStock(@Param("category") String category, @Param("availability") String availability);
+    @Query("SELECT a FROM Product a WHERE a.category=:category")
+    List<Product> sortCategory(@Param("category") String category);
+
+    @Query("SELECT a FROM Product a WHERE a.category=:category AND a.availability=:availability")
+    List<Product> sortCatAvail(@Param("category") String category, @Param("availability") String availability);
+
 }

@@ -45,5 +45,15 @@ public class ProductServiceImpl implements ProductService {
         return products;
     }
 
+    @Override
+    public List<Product> sortC(String category) {
+        List<Product> products = productRepository.sortCategory(category);
+        return products;
+    }
 
+    @Override
+    public List<Product> sortCA(String category, String availability) {
+        List<Product> products = productRepository.sortCatAvail(category, availability);
+        return products;
+    }
 }

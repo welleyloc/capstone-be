@@ -48,31 +48,48 @@ public class ProductRestController {
         return products;
     }
 
-    @GetMapping("/categoryStock")
-    public List<Product> sortByCategoryStock(@RequestParam(required=false, defaultValue = "") String category, @RequestParam(required=false, defaultValue = "") String availability) {
-        List<Product> products = productRepository.findByCategoryStock(category, availability);
+    @GetMapping("/{id}")
+    public Product getProduct(@PathVariable int id) {
+        return productService.getProductById(id);
+    }
+
+    @GetMapping("/sortCat")
+    public List<Product> sortCategory(@RequestParam(required=false, defaultValue = "") String category) {
+        List<Product> products = productService.sortC(category);
+        return products;
+    }
+
+    @GetMapping("/sortCatAvail")
+    public List<Product> sortCategoryAvailability(@RequestParam(required=false, defaultValue = "") String category,
+                                                  @RequestParam(required=false, defaultValue = "") String availability) {
+        List<Product> products = productService.sortCA(category, availability);
         return products;
     }
 
     @DeleteMapping("/{id}")
-    public String deleteProd(@PathVariable int id) {
+    public void deleteProd(@PathVariable int id) {
         Product product = productService.getProductById(id);
         productService.deleteProduct(product);
-        return "HTTP DELETE requested for ID " + product.getId() + ", " + product.getProductName();
     }
 
     @PostMapping("/createProduct")
     public Product createProd(Product product) {
-        productService.saveProduct(product);
-        return product;
+
+        return productService.saveProduct(product);
     }
 
-    @PutMapping("/{id}")
-    public Product updateProd(Product product) {
-        productService.updateProduct(product);
-        return product;
+    @PutMapping("/updateProduct")
+    public Product updateProd(@RequestBody Product product) {
+        return productService.updateProduct(product);
     }
 
+//    @PutMapping("/{id}")
+//    public Product updateProd(Product product) {
+//        productService.updateProduct(product);
+//        return product;
+//    }
+
+// For @Controller with Thymeleaf - not entirely complete
 
 //    @GetMapping("deleteProduct")
 //    public String removeProduct(@RequestParam("id") int id) {
