@@ -46,7 +46,6 @@ public class SpringBatchConfig {
                 .processor(compositeItemProcessor)
                 .writer(productItemWriter)
                 .build();
-
         System.out.println("PRODUCTS STEP1 COMPILED");
 
         Step step2 = stepBuilderFactory.get("Category-File-Load")
@@ -54,7 +53,6 @@ public class SpringBatchConfig {
                 .reader(categoryItemReader)
                 .writer(categoryItemWriter)
                 .build();
-
         System.out.println("CATEGORIES STEP2 COMPILED");
 
         Step step3 = stepBuilderFactory.get("Supplier-File-Load")
@@ -62,8 +60,7 @@ public class SpringBatchConfig {
                 .reader(supplierItemReader)
                 .writer(supplierItemWriter)
                 .build();
-
-        System.out.println("CATEGORIES STEP2 COMPILED");
+        System.out.println("SUPPLIERS STEP3 COMPILED");
 
 
         return jobBuilderFactory.get("CSV-Reader-Job")
@@ -133,4 +130,3 @@ public class SpringBatchConfig {
     }
 
 }
-

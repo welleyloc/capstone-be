@@ -13,8 +13,6 @@ import welley.capstone.service.ProductService;
 
 import java.util.List;
 
-
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProductRestController {
@@ -24,9 +22,6 @@ public class ProductRestController {
 
     @Autowired
     Job job;
-
-    @Autowired
-    ProductRepository productRepository;
 
     @Autowired
     ProductService productService;
@@ -80,7 +75,6 @@ public class ProductRestController {
 
     @PostMapping("/createProduct")
     public Product createProd(Product product) {
-
         return productService.saveProduct(product);
     }
 
@@ -88,12 +82,6 @@ public class ProductRestController {
     public Product updateProd(@RequestBody Product product) {
         return productService.updateProduct(product);
     }
-
-//    @PutMapping("/{id}")
-//    public Product updateProd(Product product) {
-//        productService.updateProduct(product);
-//        return product;
-//    }
 
 // For @Controller with Thymeleaf - not entirely complete
 
