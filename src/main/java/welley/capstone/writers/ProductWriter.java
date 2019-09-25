@@ -9,16 +9,15 @@ import welley.capstone.entities.Product;
 import java.util.List;
 
 @Component
-public class Writer implements ItemWriter<Product> {
+public class ProductWriter implements ItemWriter<Product> {
 
     @Autowired
     private ProductRepository productRepository;
 
     @Override
     public void write(List<? extends Product> products) throws Exception {
-        System.out.println("Data saved: " + products);
+        System.out.println("Products saved: " + products);
         productRepository.saveAll(products);
-
     }
 }
 
