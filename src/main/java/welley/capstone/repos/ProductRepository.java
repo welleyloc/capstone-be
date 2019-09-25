@@ -13,6 +13,9 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+    @Query("SELECT a FROM Product a WHERE a.supplier=:supplier")
+    List<Product> sortSupplier(@Param("supplier") String supplier);
+
     @Query("SELECT a FROM Product a WHERE a.category=:category")
     List<Product> sortCategory(@Param("category") String category);
 

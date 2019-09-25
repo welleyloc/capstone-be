@@ -59,6 +59,12 @@ public class ProductRestController {
         return products;
     }
 
+    @GetMapping("/sortSup")
+    public List<Product> sortSupplier(@RequestParam(required=false, defaultValue = "") String supplier) {
+        List<Product> products = productService.sortS(supplier);
+        return products;
+    }
+
     @GetMapping("/sortCatAvail")
     public List<Product> sortCategoryAvailability(@RequestParam(required=false, defaultValue = "") String category,
                                                   @RequestParam(required=false, defaultValue = "") String availability) {
