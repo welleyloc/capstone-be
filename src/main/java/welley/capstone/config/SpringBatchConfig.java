@@ -20,7 +20,7 @@ import welley.capstone.entities.Category;
 import welley.capstone.entities.Product;
 import welley.capstone.entities.Supplier;
 
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+
 @Configuration
 @EnableBatchProcessing //need this annotation for JobLauncher bean definition
 public class SpringBatchConfig {
@@ -62,7 +62,6 @@ public class SpringBatchConfig {
                 .build();
         System.out.println("SUPPLIERS STEP3 COMPILED");
 
-
         return jobBuilderFactory.get("CSV-Reader-Job")
                 .incrementer(new RunIdIncrementer())
                 .start(step1)
@@ -79,15 +78,14 @@ public class SpringBatchConfig {
         productFileItemReader.setLinesToSkip(1); // skips the header
         productFileItemReader.setLineMapper(new DefaultLineMapper<Product>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames(new String[]{"id", "productName", "category", "fullPrice",
-                        "salePrice", "availability", "supplier"});
+                setNames("id", "productName", "category", "fullPrice",
+                        "salePrice", "availability", "supplier");
             }});
             setFieldSetMapper(new BeanWrapperFieldSetMapper<Product>() {{
                 setTargetType(Product.class);
             }});
         }});
         System.out.println("PRODUCTS CSV FILE WAS READ!");
-
         return productFileItemReader;
     }
 
@@ -97,14 +95,17 @@ public class SpringBatchConfig {
         categoryFileItemReader.setResource(resource);
         categoryFileItemReader.setName("Category-File-Reader");
         categoryFileItemReader.setLinesToSkip(1);
-        categoryFileItemReader.setLineMapper(new DefaultLineMapper<Category>() {{
-            setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames(new String[]{"categoryId", "categoryName"});
-            }});
-            setFieldSetMapper(new BeanWrapperFieldSetMapper<Category>() {{
-                setTargetType(Category.class);
-            }});
-        }});
+
+        DefaultLineMapper defaultLineMapper = new DefaultLineMapper();
+        DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer();
+        BeanWrapperFieldSetMapper beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper();
+
+        delimitedLineTokenizer.setNames("categoryId", "categoryName");
+        defaultLineMapper.setLineTokenizer(delimitedLineTokenizer);
+        defaultLineMapper.setFieldSetMapper(beanWrapperFieldSetMapper);
+
+        categoryFileItemReader.setLineMapper(defaultLineMapper);
+        beanWrapperFieldSetMapper.setTargetType(Category.class);
 
         System.out.println("CATEGORIES CSV FILE WAS READ!");
         return categoryFileItemReader;
@@ -118,7 +119,7 @@ public class SpringBatchConfig {
         supplierFileItemReader.setLinesToSkip(1);
         supplierFileItemReader.setLineMapper(new DefaultLineMapper<Supplier>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames(new String[]{"supplierId", "supplierName"});
+                setNames("supplierId", "supplierName");
             }});
             setFieldSetMapper(new BeanWrapperFieldSetMapper<Supplier>() {{
                 setTargetType(Supplier.class);
@@ -127,6 +128,7 @@ public class SpringBatchConfig {
 
         System.out.println("SUPPLIERS CSV FILE WAS READ!");
         return supplierFileItemReader;
+
     }
 
 }

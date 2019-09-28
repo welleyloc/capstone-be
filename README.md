@@ -1,20 +1,19 @@
-### Capstone back-end (Spring Boot + Angular CRUD)
+### Capstone dashboard back-end (Spring Boot + Angular CRUD)
 
 This is part 1 of my final project created for educational purposes only.
 
-Project completion ~9-10 days for both Spring back-end and Angular front-end.
+Project completion ~2 wks for both Spring back-end and Angular front-end.
 
 #### Services used
-* Sprint Boot, Batch, Data JPA, MVC, REST
-* H2-console for development
+* Sprint Boot, Batch, Data JPA, REST
+* H2 development database
 * Maven
 * Postman
-* mySQL
-* Angular 8 with Bootstrap 4
+* Angular 8 with Bootstrap 4, Angular Materials (table sort/pagination)
 
-(Maybe for later: Spring Security)
+(Maybe for later: mySQL migration if time permits, Spring Security)
 
-#### Work flow/general commits
+#### Work flow/major commits
 
 1. Set up Spring Batch base code with reader/writer to create H2 database/console from main spreadsheet and a REST controller.
 

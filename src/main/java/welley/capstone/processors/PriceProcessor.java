@@ -3,8 +3,8 @@ package welley.capstone.processors;
 import org.springframework.batch.item.ItemProcessor;
 import welley.capstone.entities.Product;
 
-// There is an error in products.csv where some sale prices are higher than the full price
-// This processor is set to swap the prices
+// There is an error in the original products.csv where some sale prices are higher than the full price
+// This processor is set to swap the prices as the database loads before conducting any further actions
 
 public class PriceProcessor implements ItemProcessor<Product, Product> {
     public PriceProcessor() {

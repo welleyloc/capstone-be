@@ -1,9 +1,11 @@
 package welley.capstone.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 public class Product {
@@ -12,21 +14,22 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String productName;
-    private String supplier;
-    private String category;
-    private String availability;
+    private int supplier;
+    private int category;
+
+    private boolean availability;
     private double fullPrice;
     private double salePrice;
     private double discountPercent;
 
-    public Product(String productName, String supplier, String category, String availability, double fullPrice, double salePrice, double discountPercent) {
+    public Product(String productName, int supplier, int category, boolean availability, double fullPrice, double salePrice, double discountPercent) {
         this.productName = productName;
         this.supplier = supplier;
         this.category = category;
         this.availability = availability;
         this.fullPrice = fullPrice;
         this.salePrice = salePrice;
-        this.discountPercent = discountPercent;
+        this.discountPercent = 0.00;
     }
 
     public Product() {}
@@ -47,50 +50,57 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
-    public String getAvailability() {
+    public boolean getAvailability() {
         return availability;
     }
 
-    public void setAvailability(String availability) {
+    public void setAvailability(boolean availability) {
         this.availability = availability;
     }
 
-    public String getSupplier() {
+    public int getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(String supplier) { this.supplier = supplier; }
+    public void setSupplier(int supplier) { this.supplier = supplier; }
 
+    @Transient
     public double getFullPrice() {
-        return fullPrice;
+        BigDecimal formatter = new BigDecimal(this.fullPrice + "").setScale(2, RoundingMode.CEILING);
+        return formatter.doubleValue();
     }
 
     public void setFullPrice(double fullPrice) {
         this.fullPrice = fullPrice;
     }
 
+    @Transient
     public double getSalePrice() {
-        return salePrice;
+        BigDecimal formatter = new BigDecimal(this.salePrice + "").setScale(2, RoundingMode.CEILING);
+        return formatter.doubleValue();
     }
 
     public void setSalePrice(double salePrice) {
         this.salePrice = salePrice;
     }
 
-    public double getDiscountPercent() {
-        return discountPercent;
+    public void setDiscountPercent() {
+        this.discountPercent = ((getFullPrice() - getSalePrice()) / getFullPrice() * 100);
     }
 
-    public void setDiscountPercent(double discountPercent) {
-        this.discountPercent = discountPercent;
+    @Transient
+    public double getDiscountPercent()
+    {
+        BigDecimal formatter = new BigDecimal(this.discountPercent + "").setScale(2, RoundingMode.CEILING);
+        return formatter.doubleValue();
     }
 
     @Override

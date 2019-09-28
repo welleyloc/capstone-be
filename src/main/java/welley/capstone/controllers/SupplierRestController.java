@@ -1,4 +1,4 @@
-package welley.capstone.controller;
+package welley.capstone.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import welley.capstone.entities.Supplier;
-import welley.capstone.service.SupplierService;
+import welley.capstone.service.TransactionalService;
 
 import java.util.List;
 
@@ -15,16 +15,16 @@ import java.util.List;
 public class SupplierRestController {
 
     @Autowired
-    SupplierService supplierService;
+    TransactionalService transactionalService;
 
     @GetMapping("/getSuppliers")
     public List<Supplier> getSupplierDashboard() {
-        return supplierService.getAllSuppliers();
+        return transactionalService.getAllSuppliers();
     }
 
     @PostMapping("/createSupplier")
     public Supplier createCategory(Supplier supplier){
-        return supplierService.saveSupplier(supplier);
+        return transactionalService.saveSupplier(supplier);
     }
 
 }

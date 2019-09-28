@@ -4,7 +4,7 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import welley.capstone.entities.Category;
-import welley.capstone.repos.CategoryRepository;
+import welley.capstone.dal.CategoryRepository;
 
 import java.util.List;
 
