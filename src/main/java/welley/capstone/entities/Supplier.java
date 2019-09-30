@@ -1,9 +1,7 @@
 package welley.capstone.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Supplier {
@@ -12,6 +10,9 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int supplierId;
     private String supplierName;
+
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+    private List<Product> productList;
 
     public Supplier(String supplierName) {
         this.supplierName = supplierName;

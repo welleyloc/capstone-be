@@ -78,7 +78,7 @@ public class SpringBatchConfig {
         productFileItemReader.setLinesToSkip(1); // skips the header
         productFileItemReader.setLineMapper(new DefaultLineMapper<Product>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames("id", "productName", "category", "fullPrice",
+                setNames("id", "productName", "CATEGORY_ID", "fullPrice",
                         "salePrice", "availability", "supplier");
             }});
             setFieldSetMapper(new BeanWrapperFieldSetMapper<Product>() {{

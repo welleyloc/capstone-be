@@ -28,8 +28,6 @@ public class TransactionalServiceImpl implements TransactionalService {
     @Autowired
     private SupplierRepository supplierRepository;
 
-    private Map<Integer, String> categoryMap = new HashMap<>();
-
     // Product override methods
 
     @Override
@@ -57,7 +55,6 @@ public class TransactionalServiceImpl implements TransactionalService {
     @Override
     public List<Product> getAllProducts() {
 
-
         List<Product> products = productRepository.findAll();
 
         for (Product product : products) {
@@ -67,29 +64,39 @@ public class TransactionalServiceImpl implements TransactionalService {
         return products;
     }
 
-    @Override
-    public List<Product> sortS(String supplier) {
-        List<Product> products = productRepository.sortSupplier(supplier);
-        return products;
-    }
-
-    @Override
-    public List<Product> sortC(String category) {
-        List<Product> products = productRepository.sortCategory(category);
-        return products;
-    }
-
-    @Override
-    public List<Product> sortCA(String category, String availability) {
-        List<Product> products = productRepository.sortCatAvail(category, availability);
-        return products;
-    }
+//    @Override
+//    public List<Product> sortS(String supplier) {
+//        List<Product> products = productRepository.sortSupplier(supplier);
+//        return products;
+//    }
+//
+//    @Override
+//    public List<Product> sortC(String category) {
+//        List<Product> products = productRepository.sortCategory(category);
+//        return products;
+//    }
+//
+//    @Override
+//    public List<Product> sortCA(String category, String availability) {
+//        List<Product> products = productRepository.sortCatAvail(category, availability);
+//        return products;
+//    }
 
     // Category override methods
 
     @Override
-    public Category saveCategory(Category category) {
+    public Category createCategory(Category category) {
         return categoryRepository.save(category);
+    }
+
+    @Override
+    public Category deleteCategory(Category category) {
+        return null;
+    }
+
+    @Override
+    public Category updateCategory(Category category) {
+        return null;
     }
 
     @Override
@@ -101,9 +108,8 @@ public class TransactionalServiceImpl implements TransactionalService {
     // Supplier override methods
 
     @Override
-    public Supplier saveSupplier(Supplier supplier) {
-        supplierRepository.save(supplier);
-        return supplier;
+    public Supplier createSupplier(Supplier supplier) {
+        return supplierRepository.save(supplier);
     }
 
     @Override

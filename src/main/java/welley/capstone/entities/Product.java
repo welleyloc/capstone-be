@@ -1,36 +1,35 @@
 package welley.capstone.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Entity
+@Table(name="PRODUCT")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String productName;
-    private int supplier;
-    private int category;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "SUPPLIER_ID")
+    @JsonIgnoreProperties("supplierList")
+    private Supplier supplier;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CATEGORY_ID")
+    @JsonIgnoreProperties("productList")
+    private Category category;
 
     private boolean availability;
     private double fullPrice;
     private double salePrice;
     private double discountPercent;
-
-    public Product(String productName, int supplier, int category, boolean availability, double fullPrice, double salePrice, double discountPercent) {
-        this.productName = productName;
-        this.supplier = supplier;
-        this.category = category;
-        this.availability = availability;
-        this.fullPrice = fullPrice;
-        this.salePrice = salePrice;
-        this.discountPercent = 0.00;
-    }
 
     public Product() {}
 
@@ -50,11 +49,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public int getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -66,11 +65,11 @@ public class Product {
         this.availability = availability;
     }
 
-    public int getSupplier() {
+    public Supplier getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(int supplier) { this.supplier = supplier; }
+    public void setSupplier(Supplier supplier) { this.supplier = supplier; }
 
     @Transient
     public double getFullPrice() {
@@ -103,17 +102,4 @@ public class Product {
         return formatter.doubleValue();
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", productName='" + productName + '\'' +
-                ", supplier='" + supplier + '\'' +
-                ", category='" + category + '\'' +
-                ", availability='" + availability + '\'' +
-                ", fullPrice=" + fullPrice +
-                ", salePrice=" + salePrice +
-                ", discountPercent=" + discountPercent +
-                '}';
-    }
 }

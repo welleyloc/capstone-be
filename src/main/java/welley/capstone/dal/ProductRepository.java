@@ -22,4 +22,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT a FROM Product a WHERE a.category=:category AND a.availability=:availability")
     List<Product> sortCatAvail(@Param("category") String category, @Param("availability") String availability);
 
+
 }

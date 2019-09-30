@@ -40,28 +40,28 @@ public class ProductRestController {
     public List<Product> getDashboard() {
         return transactionalService.getAllProducts();
     }
-
-    @GetMapping("/{id}")
-    public Product getProduct(@PathVariable int id) {
-
-        return transactionalService.getProductById(id);
-    }
-
-    @GetMapping("/sortCat")
-    public List<Product> sortCategory(@RequestParam(required=false, defaultValue = "") String category) {
-        return transactionalService.sortC(category);
-    }
-
-    @GetMapping("/sortSup")
-    public List<Product> sortSupplier(@RequestParam(required=false, defaultValue = "") String supplier) {
-        return transactionalService.sortS(supplier);
-    }
-
-    @GetMapping("/sortCatAvail")
-    public List<Product> sortCategoryAvailability(@RequestParam(required=true, defaultValue = "") String category,
-                                                  @RequestParam(required=true, defaultValue = "") String availability) {
-        return transactionalService.sortCA(category, availability);
-    }
+//
+//    @GetMapping("/{id}")
+//    public Product getProduct(@PathVariable int id) {
+//
+//        return transactionalService.getProductById(id);
+//    }
+//
+//    @GetMapping("/sortCat")
+//    public List<Product> sortCategory(@RequestParam(required=false, defaultValue = "") String category) {
+//        return transactionalService.sortC(category);
+//    }
+//
+//    @GetMapping("/sortSup")
+//    public List<Product> sortSupplier(@RequestParam(required=false, defaultValue = "") String supplier) {
+//        return transactionalService.sortS(supplier);
+//    }
+//
+//    @GetMapping("/sortCatAvail")
+//    public List<Product> sortCategoryAvailability(@RequestParam(required=true, defaultValue = "") String category,
+//                                                  @RequestParam(required=true, defaultValue = "") String availability) {
+//        return transactionalService.sortCA(category, availability);
+//    }
 
     @DeleteMapping("/{id}")
     public void deleteProd(@PathVariable int id) {
@@ -69,7 +69,7 @@ public class ProductRestController {
         transactionalService.deleteProduct(product);
     }
 
-    @PostMapping("/createProduct")
+    @PostMapping("/createProduct/{category}")
     public Product createProd(@RequestBody Product product) {
         return transactionalService.createProduct(product);
     }

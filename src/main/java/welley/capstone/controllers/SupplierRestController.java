@@ -17,14 +17,14 @@ public class SupplierRestController {
     @Autowired
     TransactionalService transactionalService;
 
-    @GetMapping("/getSuppliers")
-    public List<Supplier> getSupplierDashboard() {
-        return transactionalService.getAllSuppliers();
-    }
-
-    @PostMapping("/createSupplier")
-    public Supplier createCategory(Supplier supplier){
-        return transactionalService.saveSupplier(supplier);
-    }
+//    @GetMapping("/getSuppliers")
+//    public List<Supplier> getSupplierDashboard() {
+//        return transactionalService.getAllSuppliers();
+//    }
+//
+//    @PostMapping("/createSupplier")
+//    public Supplier createCategory(Supplier supplier){
+//        return transactionalService.saveSupplier(supplier);
+//    }
 
 }

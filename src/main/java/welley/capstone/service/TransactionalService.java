@@ -5,6 +5,7 @@ import welley.capstone.entities.Product;
 import welley.capstone.entities.Supplier;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TransactionalService {
 
@@ -20,21 +21,26 @@ public interface TransactionalService {
 
     List<Product> getAllProducts();
 
-    List<Product> sortS(String supplier);
+//    List<Product> sortS(String supplier);
 
-    List<Product> sortC(String category);
+//    List<Product> sortC(String category);
 
-    List<Product> sortCA(String category, String availability);
+//    List<Product> sortCA(String category, String availability);
 
     // Category methods
 
-    Category saveCategory(Category category);
+    Category createCategory(Category category);
+
+    Category deleteCategory(Category category);
+
+    Category updateCategory(Category category);
 
     List<Category> getAllCategories();
 
+
     // Supplier methods
 
-   Supplier saveSupplier(Supplier supplier);
+   Supplier createSupplier(Supplier supplier);
 
    List<Supplier> getAllSuppliers();
 
