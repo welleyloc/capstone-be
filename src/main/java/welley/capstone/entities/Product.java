@@ -18,12 +18,12 @@ public class Product {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SUPPLIER_ID")
-    @JsonIgnoreProperties("supplierList")
+//    @JsonIgnoreProperties("supplierList")
     private Supplier supplier;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CATEGORY_ID")
-    @JsonIgnoreProperties("productList")
+//    @JsonIgnoreProperties("productList")
     private Category category;
 
     private boolean availability;

@@ -1,7 +1,5 @@
 package welley.capstone.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,8 +13,8 @@ public class Category {
 
     private String categoryName;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Product> productList;
+//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+//    private List<Product> productList;
 
     public Category(String categoryName) {
         this.categoryName = categoryName;
@@ -37,12 +35,12 @@ public class Category {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
-
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-    }
+//
+//    public List<Product> getProductList() {
+//        return productList;
+//    }
+//
+//    public void setProductList(List<Product> productList) {
+//        this.productList = productList;
+//    }
 }

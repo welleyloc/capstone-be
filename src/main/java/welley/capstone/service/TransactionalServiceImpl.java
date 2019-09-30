@@ -28,6 +28,7 @@ public class TransactionalServiceImpl implements TransactionalService {
     @Autowired
     private SupplierRepository supplierRepository;
 
+
     // Product override methods
 
     @Override
@@ -49,6 +50,7 @@ public class TransactionalServiceImpl implements TransactionalService {
 
     @Override
     public Product getProductById(int id) {
+        getAllProducts();
         return productRepository.findById(id).get();
     }
 
@@ -102,6 +104,7 @@ public class TransactionalServiceImpl implements TransactionalService {
     @Override
     public List<Category> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
+        getAllProducts();
         return categories;
     }
 

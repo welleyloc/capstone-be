@@ -11,8 +11,8 @@ public class Supplier {
     private int supplierId;
     private String supplierName;
 
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
-    private List<Product> productList;
+//    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+//    private List<Product> productList;
 
     public Supplier(String supplierName) {
         this.supplierName = supplierName;
@@ -35,4 +35,12 @@ public class Supplier {
     public void setSupplierName(String supplierName) {
         this.supplierName = supplierName;
     }
+
+//    public List<Product> getProductList() {
+//        return productList;
+//    }
+//
+//    public void setProductList(List<Product> productList) {
+//        this.productList = productList;
+//    }
 }

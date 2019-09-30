@@ -40,12 +40,12 @@ public class ProductRestController {
     public List<Product> getDashboard() {
         return transactionalService.getAllProducts();
     }
-//
-//    @GetMapping("/{id}")
-//    public Product getProduct(@PathVariable int id) {
-//
-//        return transactionalService.getProductById(id);
-//    }
+
+    @GetMapping("/{id}")
+    public Product getProduct(@PathVariable int id) {
+
+        return transactionalService.getProductById(id);
+    }
 //
 //    @GetMapping("/sortCat")
 //    public List<Product> sortCategory(@RequestParam(required=false, defaultValue = "") String category) {
@@ -69,7 +69,7 @@ public class ProductRestController {
         transactionalService.deleteProduct(product);
     }
 
-    @PostMapping("/createProduct/{category}")
+    @PostMapping("/createProduct/{categoryId}")
     public Product createProd(@RequestBody Product product) {
         return transactionalService.createProduct(product);
     }
