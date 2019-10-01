@@ -10,9 +10,7 @@ import welley.capstone.dal.CategoryRepository;
 import welley.capstone.dal.ProductRepository;
 import welley.capstone.dal.SupplierRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -56,7 +54,6 @@ public class TransactionalServiceImpl implements TransactionalService {
 
     @Override
     public List<Product> getAllProducts() {
-
         List<Product> products = productRepository.findAll();
 
         for (Product product : products) {
@@ -65,6 +62,7 @@ public class TransactionalServiceImpl implements TransactionalService {
         }
         return products;
     }
+
 
 //    @Override
 //    public List<Product> sortS(String supplier) {
@@ -120,4 +118,5 @@ public class TransactionalServiceImpl implements TransactionalService {
         List<Supplier> suppliers = supplierRepository.findAll();
         return suppliers;
     }
+
 }

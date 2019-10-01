@@ -64,9 +64,9 @@ public class SpringBatchConfig {
 
         return jobBuilderFactory.get("CSV-Reader-Job")
                 .incrementer(new RunIdIncrementer())
-                .start(step1)
+                .start(step3)
                 .next(step2)
-                .next(step3)
+                .next(step1)
                 .build();
     }
 
@@ -78,7 +78,7 @@ public class SpringBatchConfig {
         productFileItemReader.setLinesToSkip(1); // skips the header
         productFileItemReader.setLineMapper(new DefaultLineMapper<Product>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames("id", "productName", "CATEGORY_ID", "fullPrice",
+                setNames("id", "productName", "category", "fullPrice",
                         "salePrice", "availability", "supplier");
             }});
             setFieldSetMapper(new BeanWrapperFieldSetMapper<Product>() {{

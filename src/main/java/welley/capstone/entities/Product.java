@@ -1,13 +1,15 @@
 package welley.capstone.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Entity
-@Table(name="PRODUCT")
+@Table(name = "PRODUCT")
 public class Product {
 
     @Id
@@ -16,14 +18,12 @@ public class Product {
 
     private String productName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "SUPPLIER_ID")
-//    @JsonIgnoreProperties("supplierList")
-    private Supplier supplier;
+    @JoinColumn(name = "supplier_id")
+    private int supplier;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CATEGORY_ID")
-//    @JsonIgnoreProperties("productList")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties("productList")
     private Category category;
 
     private boolean availability;
@@ -31,7 +31,18 @@ public class Product {
     private double salePrice;
     private double discountPercent;
 
-    public Product() {}
+    public Product() {
+    }
+
+    public Product(String productName, int supplier, Category category, boolean availability, double fullPrice, double salePrice, double discountPercent) {
+        this.productName = productName;
+        this.supplier = supplier;
+        this.category = category;
+        this.availability = availability;
+        this.fullPrice = fullPrice;
+        this.salePrice = salePrice;
+        this.discountPercent = discountPercent;
+    }
 
     public int getId() {
         return id;
@@ -49,11 +60,13 @@ public class Product {
         this.productName = productName;
     }
 
+
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
+        System.out.println("setting category");
         this.category = category;
     }
 
@@ -65,11 +78,13 @@ public class Product {
         this.availability = availability;
     }
 
-    public Supplier getSupplier() {
+    public int getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(Supplier supplier) { this.supplier = supplier; }
+    public void setSupplier(int supplier) {
+        this.supplier = supplier;
+    }
 
     @Transient
     public double getFullPrice() {
@@ -96,10 +111,10 @@ public class Product {
     }
 
     @Transient
-    public double getDiscountPercent()
-    {
+    public double getDiscountPercent() {
         BigDecimal formatter = new BigDecimal(this.discountPercent + "").setScale(2, RoundingMode.CEILING);
         return formatter.doubleValue();
     }
+
 
 }

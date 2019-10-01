@@ -1,11 +1,13 @@
 package welley.capstone.service;
 
+import org.hibernate.validator.constraints.Mod11Check;
 import welley.capstone.entities.Category;
 import welley.capstone.entities.Product;
 import welley.capstone.entities.Supplier;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface TransactionalService {
 
@@ -21,15 +23,9 @@ public interface TransactionalService {
 
     List<Product> getAllProducts();
 
-//    List<Product> sortS(String supplier);
-
-//    List<Product> sortC(String category);
-
-//    List<Product> sortCA(String category, String availability);
-
-    // Category methods
-
     Category createCategory(Category category);
+
+//    Product createProductInCategory(Product product);
 
     Category deleteCategory(Category category);
 

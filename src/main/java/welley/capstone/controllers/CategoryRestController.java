@@ -23,5 +23,9 @@ public class CategoryRestController {
     public Category createCategory(@RequestBody Category category){
         return transactionalService.createCategory(category);
     }
+//    @PostMapping("/createCategory")
+//    public Product createProductInCategory(@RequestBody Product product){
+//        return transactionalService.createProduct(product);
+//    }
 
 }
