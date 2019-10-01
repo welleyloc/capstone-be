@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import welley.capstone.dal.CategoryRepository;
 import welley.capstone.dal.ProductRepository;
+import welley.capstone.dal.SupplierRepository;
 import welley.capstone.entities.Category;
 import welley.capstone.entities.Product;
+import welley.capstone.entities.Supplier;
 
 import java.util.List;
 
@@ -19,11 +21,15 @@ public class ProductWriter implements ItemWriter<Product> {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    SupplierRepository supplierRepository;
+
     @Override
     public void write(List<? extends Product> products) throws Exception {
 
-        // get all categories in a list for column mapping
+        // get all categories/suppliers in a list for column mapping
         List<Category> categories = categoryRepository.findAll();
+        List<Supplier> suppliers = supplierRepository.findAll();
 
         // start filling in categories by foreign key:
         // loop over all the products
@@ -46,9 +52,16 @@ public class ProductWriter implements ItemWriter<Product> {
                     System.out.println("Product set to this category: " + category);
                     break; // out of category block
                 }
-
             }
 
+            for (Supplier supplier : suppliers) {
+                int product_supplier_fk = Integer.parseInt(product.getSupplier().getSupplierName());
+
+                if (supplier.getSupplierId() == product_supplier_fk) {
+                    product.setSupplier(supplier);
+                    break;
+                }
+            }
         }
         System.out.println("Products saved: " + products);
         productRepository.saveAll(products);

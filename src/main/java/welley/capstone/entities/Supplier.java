@@ -1,6 +1,7 @@
 package welley.capstone.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Supplier {
@@ -13,14 +14,14 @@ public class Supplier {
     @Column(name="supplier_name")
     private String supplierName;
 
-//    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
-//    private List<Product> productList;
+    @OneToMany(mappedBy = "supplier", cascade={CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE},fetch=FetchType.LAZY)
+    private List<Product> productList;
+
+    public Supplier() {}
 
     public Supplier(String supplierName) {
         this.supplierName = supplierName;
     }
-
-    public Supplier() {}
 
     public int getSupplierId() {
         return supplierId;
@@ -38,11 +39,16 @@ public class Supplier {
         this.supplierName = supplierName;
     }
 
-//    public List<Product> getProductList() {
-//        return productList;
-//    }
-//
-//    public void setProductList(List<Product> productList) {
-//        this.productList = productList;
-//    }
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    public void addProductToList(Product product) {
+        productList.add(product);
+        product.setSupplier(this);
+    }
 }

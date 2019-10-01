@@ -13,13 +13,18 @@ Project completion ~2 wks for both Spring back-end and Angular front-end.
 
 (Maybe for later: mySQL migration if time permits, Spring Security)
 
+#### Biggest hair-pulling back-end obstacles encountered & tackled 
+
+* Setting foreign keys and joining columns with a Spring Batch framework...with a bi-directional parent-child relationship...
+* The best way to design this Spring Batch code for the long run to read/write tables from three entities, and 2/3 are also maps.
+
 #### Work flow/major commits
 
 1. Set up Spring Batch base code with reader/writer to create H2 database/console from main spreadsheet and a REST controller.
 
-2. Add Spring Batch processors to transform data in table (Hashmaps, discount calculation, fix column errors, availability boolean, etc. )
+2. Add Spring Batch processors to transform data in table (fix error with the price columns)
 
-3. Add service and DAL layers for CRUD operations. Add JPA and Spring MVC get/put/post/delete annotations for client access.
+3. Add service and DAL layers for CRUD operations. Add JPA and get/put/post/delete annotations/actions for client access.
 
 4. Test basic/custom CRUD operations via Postman HTTP requests.
 
@@ -35,8 +40,13 @@ Project completion ~2 wks for both Spring back-end and Angular front-end.
 
 8. Write test cases in front and back ends for CRUD and processors.
 
-9. Add dependencies/properties to migrate from H2 development database to mySQL.
+9. Add dependencies/properties to migrate from H2 development database to mySQL, if time permits.
 
-10. Host on Heroku with ClearDB. 
+10. Host on Heroku with ClearDB or some other methods.
 
 (Maybe for later: Connect server-size code to Google Charts)
+
+#### Remarks
+
+Thanks to the TTS class (especially Scott, Ricardo, Jonathan, Jordan, and Austin) for allowing me to pick your brains and dealing with me during my times of confusion. 
+I had no idea the challenges I was getting myself into, but because of everyone I was able to give my best shot at this problem.

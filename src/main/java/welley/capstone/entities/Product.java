@@ -18,8 +18,10 @@ public class Product {
 
     private String productName;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "supplier_id")
-    private int supplier;
+    @JsonIgnoreProperties("productList")
+    private Supplier supplier;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
@@ -34,7 +36,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productName, int supplier, Category category, boolean availability, double fullPrice, double salePrice, double discountPercent) {
+    public Product(String productName, Supplier supplier, Category category, boolean availability, double fullPrice, double salePrice, double discountPercent) {
         this.productName = productName;
         this.supplier = supplier;
         this.category = category;
@@ -78,11 +80,11 @@ public class Product {
         this.availability = availability;
     }
 
-    public int getSupplier() {
+    public Supplier getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(int supplier) {
+    public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
     }
 
