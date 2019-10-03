@@ -2,6 +2,7 @@ package welley.capstone.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,11 +19,13 @@ public class Product {
 
     private String productName;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "supplier_id")
     @JsonIgnoreProperties("productList")
     private Supplier supplier;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     @JsonIgnoreProperties("productList")
@@ -31,6 +34,7 @@ public class Product {
     private boolean availability;
     private double fullPrice;
     private double salePrice;
+
     private double discountPercent;
 
     public Product() {
@@ -68,7 +72,6 @@ public class Product {
     }
 
     public void setCategory(Category category) {
-        System.out.println("setting category");
         this.category = category;
     }
 
@@ -88,7 +91,6 @@ public class Product {
         this.supplier = supplier;
     }
 
-    @Transient
     public double getFullPrice() {
         BigDecimal formatter = new BigDecimal(this.fullPrice + "").setScale(2, RoundingMode.CEILING);
         return formatter.doubleValue();
@@ -98,7 +100,6 @@ public class Product {
         this.fullPrice = fullPrice;
     }
 
-    @Transient
     public double getSalePrice() {
         BigDecimal formatter = new BigDecimal(this.salePrice + "").setScale(2, RoundingMode.CEILING);
         return formatter.doubleValue();

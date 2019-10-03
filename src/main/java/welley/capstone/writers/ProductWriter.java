@@ -33,23 +33,25 @@ public class ProductWriter implements ItemWriter<Product> {
 
         // start filling in categories by foreign key:
         // loop over all the products
-        System.out.println("start loop");
+
+//        System.out.println("start loop");
 
         for (Product product : products) {
-            System.out.println(product.getCategory());
+//            System.out.println(product.getCategory());
+
             // loop over all categories that might be associated with product
             for (Category category : categories) {
-                System.out.println("Current Category: " + category);
+//                System.out.println("Current Category: " + category);
 
                 // get Product category foreign key
                 int product_category_fk = Integer.parseInt(product.getCategory().getCategoryName());
 
-                System.out.println("Current Product category foreign key id is: " + product_category_fk);
+//                System.out.println("Current Product category foreign key id is: " + product_category_fk);
 
                 // if foreign key matches the Category ID then map and break
                 if (category.getCategoryId() == product_category_fk) {
                     product.setCategory(category);
-                    System.out.println("Product set to this category: " + category);
+//                    System.out.println("Product set to this category: " + category);
                     break; // out of category block
                 }
             }

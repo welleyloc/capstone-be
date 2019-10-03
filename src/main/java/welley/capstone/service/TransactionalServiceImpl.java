@@ -3,6 +3,7 @@ package welley.capstone.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.tools.jconsole.JConsole;
 import welley.capstone.entities.Category;
 import welley.capstone.entities.Product;
 import welley.capstone.entities.Supplier;
@@ -26,18 +27,32 @@ public class TransactionalServiceImpl implements TransactionalService {
     @Autowired
     private SupplierRepository supplierRepository;
 
-
     // Product override methods
 
     @Override
-    public Product createProduct(Product product) {
+    public Product createProduct(Product product, int categoryId, int supplierId) {
         product.setDiscountPercent();
         product.getDiscountPercent();
+
+        Category category = categoryRepository.findById(categoryId).get();
+        category.addProductToList(product);
+
+        Supplier supplier = supplierRepository.findById(supplierId).get();
+        supplier.addProductToList(product);
         return productRepository.save(product);
     }
 
     @Override
-    public Product updateProduct(Product product) {
+    public Product updateProduct(Product product, int id, int categoryId, int supplierId) {
+
+        product.setDiscountPercent();
+        product.getDiscountPercent();
+
+        Category category = categoryRepository.findById(categoryId).get();
+        product.setCategory(category);
+
+        Supplier supplier = supplierRepository.findById(supplierId).get();
+        product.setSupplier(supplier);
         return productRepository.save(product);
     }
 
@@ -63,26 +78,13 @@ public class TransactionalServiceImpl implements TransactionalService {
         return products;
     }
 
-
-//    @Override
-//    public List<Product> sortS(String supplier) {
-//        List<Product> products = productRepository.sortSupplier(supplier);
-//        return products;
-//    }
-//
-//    @Override
-//    public List<Product> sortC(String category) {
-//        List<Product> products = productRepository.sortCategory(category);
-//        return products;
-//    }
-//
-//    @Override
-//    public List<Product> sortCA(String category, String availability) {
-//        List<Product> products = productRepository.sortCatAvail(category, availability);
-//        return products;
-//    }
-
     // Category override methods
+
+
+    @Override
+    public Category getCategoryById(int categoryId) {
+        return categoryRepository.findById(categoryId).get();
+    }
 
     @Override
     public Category createCategory(Category category) {
@@ -90,13 +92,16 @@ public class TransactionalServiceImpl implements TransactionalService {
     }
 
     @Override
-    public Category deleteCategory(Category category) {
-        return null;
+    public void deleteCategory(Category category) {
+        categoryRepository.delete(category);
     }
 
     @Override
-    public Category updateCategory(Category category) {
-        return null;
+    public Category updateCategory(String categoryName, int categoryId) {
+        Category category = categoryRepository.findById(categoryId).get();
+        category.setCategoryName(categoryName);
+        getAllProducts();
+        return categoryRepository.save(category);
     }
 
     @Override
@@ -106,7 +111,34 @@ public class TransactionalServiceImpl implements TransactionalService {
         return categories;
     }
 
+    @Override
+    public List<Product> getProductsInCategory(int categoryId) {
+        Category category = categoryRepository.findById(categoryId).get();
+        List<Product> products = category.getProductList();
+        getAllProducts();
+        return products;
+    }
+
     // Supplier override methods
+
+
+    @Override
+    public Supplier getSupplierById(int supplierId) {
+        return supplierRepository.findById(supplierId).get();
+    }
+
+    @Override
+    public void deleteSupplier(Supplier supplier) {
+        supplierRepository.delete(supplier);
+    }
+
+    @Override
+    public Supplier updateSupplier(String supplierName, int supplierId) {
+        Supplier supplier = supplierRepository.findById(supplierId).get();
+        supplier.setSupplierName(supplierName);
+        getAllProducts();
+        return supplierRepository.save(supplier);
+    }
 
     @Override
     public Supplier createSupplier(Supplier supplier) {
@@ -116,7 +148,15 @@ public class TransactionalServiceImpl implements TransactionalService {
     @Override
     public List<Supplier> getAllSuppliers() {
         List<Supplier> suppliers = supplierRepository.findAll();
+        getAllProducts();
         return suppliers;
     }
 
+    @Override
+    public List<Product> getProductsInSupplier(int supplierId) {
+        Supplier supplier = supplierRepository.findById(supplierId).get();
+        List<Product> products = supplier.getProductList();
+        getAllProducts();
+        return products;
+    }
 }

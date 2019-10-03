@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import welley.capstone.dal.ProductRepository;
 import welley.capstone.entities.Category;
 import welley.capstone.dal.CategoryRepository;
-import welley.capstone.entities.Product;
 
 import java.util.List;
 

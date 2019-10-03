@@ -1,21 +1,19 @@
 package welley.capstone.service;
 
-import org.hibernate.validator.constraints.Mod11Check;
+import sun.text.resources.ro.JavaTimeSupplementary_ro;
 import welley.capstone.entities.Category;
 import welley.capstone.entities.Product;
 import welley.capstone.entities.Supplier;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public interface TransactionalService {
 
     // Product methods
 
-    Product createProduct(Product product);
+    Product createProduct(Product product, int categoryId, int supplierId);
 
-    Product updateProduct(Product product);
+    Product updateProduct(Product product, int id, int categoryId, int supplierId);
 
     void deleteProduct(Product product);
 
@@ -23,21 +21,34 @@ public interface TransactionalService {
 
     List<Product> getAllProducts();
 
+
+//  Category methods
+
     Category createCategory(Category category);
 
-//    Product createProductInCategory(Product product);
+    Category getCategoryById(int categoryId);
 
-    Category deleteCategory(Category category);
+    void deleteCategory(Category category);
 
-    Category updateCategory(Category category);
+    Category updateCategory(String categoryName, int categoryId);
 
     List<Category> getAllCategories();
+
+    List<Product> getProductsInCategory(int categoryId);
 
 
     // Supplier methods
 
-   Supplier createSupplier(Supplier supplier);
+    Supplier createSupplier(Supplier supplier);
 
-   List<Supplier> getAllSuppliers();
+    Supplier getSupplierById(int supplierId);
+
+    void deleteSupplier(Supplier supplier);
+
+    List<Supplier> getAllSuppliers();
+
+    Supplier updateSupplier(String supplierName, int supplierId);
+
+    List<Product> getProductsInSupplier(int supplierId);
 
 }

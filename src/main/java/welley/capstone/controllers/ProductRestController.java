@@ -25,6 +25,32 @@ public class ProductRestController {
     @Autowired
     TransactionalService transactionalService;
 
+    @GetMapping("/{id}")
+    public Product getProduct(@PathVariable int id) {
+        return transactionalService.getProductById(id);
+    }
+
+    @GetMapping("/dashboard")
+    public List<Product> getProductList() {
+        return transactionalService.getAllProducts();
+    }
+
+    @DeleteMapping("/product/{id}")
+    public void deleteProd(@PathVariable int id) {
+        Product product = transactionalService.getProductById(id);
+        transactionalService.deleteProduct(product);
+    }
+
+    @PostMapping("/createProduct/{categoryId}/{supplierId}")
+    public Product createProd(@RequestBody Product product, @PathVariable int categoryId, @PathVariable int supplierId) {
+        return transactionalService.createProduct(product, categoryId, supplierId);
+    }
+
+    @PutMapping("/updateProduct/{id}/{categoryId}/{supplierId}")
+    public Product updateProduct(@RequestBody Product product, @PathVariable int id, @PathVariable int categoryId, @PathVariable int supplierId) {
+        return transactionalService.updateProduct(product, id, categoryId, supplierId);
+    }
+
     @GetMapping("/batch-status")
     public BatchStatus load() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         JobParameters parameters = new JobParameters();
@@ -34,54 +60,6 @@ public class ProductRestController {
         System.out.println("Spring Batch is running...");
 
         return jobExecution.getStatus();
-    }
-
-    @GetMapping("/dashboard")
-    public List<Product> getDashboard() {
-        return transactionalService.getAllProducts();
-    }
-
-    @GetMapping("/{id}")
-    public Product getProduct(@PathVariable int id) {
-
-        return transactionalService.getProductById(id);
-    }
-//
-//    @GetMapping("/sortCat")
-//    public List<Product> sortCategory(@RequestParam(required=false, defaultValue = "") String category) {
-//        return transactionalService.sortC(category);
-//    }
-//
-//    @GetMapping("/sortSup")
-//    public List<Product> sortSupplier(@RequestParam(required=false, defaultValue = "") String supplier) {
-//        return transactionalService.sortS(supplier);
-//    }
-//
-//    @GetMapping("/sortCatAvail")
-//    public List<Product> sortCategoryAvailability(@RequestParam(required=true, defaultValue = "") String category,
-//                                                  @RequestParam(required=true, defaultValue = "") String availability) {
-//        return transactionalService.sortCA(category, availability);
-//    }
-
-    @DeleteMapping("/{id}")
-    public void deleteProd(@PathVariable int id) {
-        Product product = transactionalService.getProductById(id);
-        transactionalService.deleteProduct(product);
-    }
-
-    @PostMapping("/createProduct/{categoryId}")
-    public Product createProd(@RequestBody Product product) {
-        return transactionalService.createProduct(product);
-    }
-
-//    @PostMapping("/createProduct")
-//    public Product createProd(@RequestBody Product product) {
-//        return transactionalService.createProduct(product);
-//    }
-
-    @PutMapping("/updateProduct")
-    public Product updateProd(@RequestBody Product product) {
-        return transactionalService.updateProduct(product);
     }
 
 }

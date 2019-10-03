@@ -7,17 +7,18 @@ import java.util.List;
 public class Supplier {
 
     @Id
-    @Column(name="supplier_id")
+    @Column(name = "supplier_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int supplierId;
 
-    @Column(name="supplier_name")
+    @Column(name = "supplier_name")
     private String supplierName;
 
-    @OneToMany(mappedBy = "supplier", cascade={CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE},fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "supplier", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<Product> productList;
 
-    public Supplier() {}
+    public Supplier() {
+    }
 
     public Supplier(String supplierName) {
         this.supplierName = supplierName;
@@ -50,5 +51,14 @@ public class Supplier {
     public void addProductToList(Product product) {
         productList.add(product);
         product.setSupplier(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Supplier{" +
+                "supplierId=" + supplierId +
+                ", supplierName='" + supplierName + '\'' +
+                ", productList=" + productList +
+                '}';
     }
 }

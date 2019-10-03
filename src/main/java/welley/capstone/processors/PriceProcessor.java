@@ -12,7 +12,7 @@ public class PriceProcessor implements ItemProcessor<Product, Product> {
 
     @Override
     public Product process(Product product) throws Exception {
-        if(product.getSalePrice() > product.getFullPrice()) {
+        if (product.getSalePrice() > product.getFullPrice()) {
             double tempStorage = product.getSalePrice();
             product.setSalePrice(product.getFullPrice());
             product.setFullPrice(tempStorage);
