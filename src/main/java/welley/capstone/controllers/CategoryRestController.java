@@ -23,17 +23,14 @@ public class CategoryRestController {
         return transactionalService.getAllCategories();
     }
 
-    @GetMapping("/getProductsInCat/{categoryId}")
-    public List<Product> getProductsByCategory(@PathVariable int categoryId) { return transactionalService.getProductsInCategory(categoryId);}
-
     @PostMapping("/createCategory")
     public Category createCategory(@RequestBody Category category) {
         return transactionalService.createCategory(category);
     }
 
     @PutMapping("/updateCategory/{categoryId}")
-    public Category updateCategory(String categoryName, @PathVariable int categoryId) {
-        return transactionalService.updateCategory(categoryName, categoryId);
+    public Category updateCategory(@RequestBody Category category, @PathVariable int categoryId) {
+        return transactionalService.updateCategory(category, categoryId);
     }
 
     @DeleteMapping("/category/{categoryId}")

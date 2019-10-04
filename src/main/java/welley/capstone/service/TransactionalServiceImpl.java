@@ -97,9 +97,7 @@ public class TransactionalServiceImpl implements TransactionalService {
     }
 
     @Override
-    public Category updateCategory(String categoryName, int categoryId) {
-        Category category = categoryRepository.findById(categoryId).get();
-        category.setCategoryName(categoryName);
+    public Category updateCategory(Category category, int categoryId) {
         getAllProducts();
         return categoryRepository.save(category);
     }
@@ -109,14 +107,6 @@ public class TransactionalServiceImpl implements TransactionalService {
         List<Category> categories = categoryRepository.findAll();
         getAllProducts();
         return categories;
-    }
-
-    @Override
-    public List<Product> getProductsInCategory(int categoryId) {
-        Category category = categoryRepository.findById(categoryId).get();
-        List<Product> products = category.getProductList();
-        getAllProducts();
-        return products;
     }
 
     // Supplier override methods
@@ -133,9 +123,7 @@ public class TransactionalServiceImpl implements TransactionalService {
     }
 
     @Override
-    public Supplier updateSupplier(String supplierName, int supplierId) {
-        Supplier supplier = supplierRepository.findById(supplierId).get();
-        supplier.setSupplierName(supplierName);
+    public Supplier updateSupplier(Supplier supplier, int supplierId) {
         getAllProducts();
         return supplierRepository.save(supplier);
     }
@@ -152,11 +140,4 @@ public class TransactionalServiceImpl implements TransactionalService {
         return suppliers;
     }
 
-    @Override
-    public List<Product> getProductsInSupplier(int supplierId) {
-        Supplier supplier = supplierRepository.findById(supplierId).get();
-        List<Product> products = supplier.getProductList();
-        getAllProducts();
-        return products;
-    }
 }

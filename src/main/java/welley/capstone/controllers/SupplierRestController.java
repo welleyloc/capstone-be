@@ -23,17 +23,14 @@ public class SupplierRestController {
         return transactionalService.getAllSuppliers();
     }
 
-    @GetMapping("/getProductsInSup/{supplierId}")
-    public List<Product> getProductsBySupplier(@PathVariable int supplierId) { return transactionalService.getProductsInSupplier(supplierId);}
-
     @PostMapping("/createSupplier")
     public Supplier createSupplier(@RequestBody Supplier supplier) {
         return transactionalService.createSupplier(supplier);
     }
 
     @PutMapping("/updateSupplier/{supplierId}")
-    public Supplier updateSupplier(String supplierName, @PathVariable int supplierId) {
-        return transactionalService.updateSupplier(supplierName, supplierId);
+    public Supplier updateSupplier(@RequestBody Supplier supplier, @PathVariable int supplierId) {
+        return transactionalService.updateSupplier(supplier, supplierId);
     }
 
     @DeleteMapping("/supplier/{supplierId}")

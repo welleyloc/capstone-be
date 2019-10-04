@@ -30,12 +30,9 @@ public interface TransactionalService {
 
     void deleteCategory(Category category);
 
-    Category updateCategory(String categoryName, int categoryId);
+    Category updateCategory(Category category, int categoryId);
 
     List<Category> getAllCategories();
-
-    List<Product> getProductsInCategory(int categoryId);
-
 
     // Supplier methods
 
@@ -47,8 +44,6 @@ public interface TransactionalService {
 
     List<Supplier> getAllSuppliers();
 
-    Supplier updateSupplier(String supplierName, int supplierId);
-
-    List<Product> getProductsInSupplier(int supplierId);
+    Supplier updateSupplier(Supplier supplier, int supplierId);
 
 }
