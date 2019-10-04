@@ -3,7 +3,7 @@ package welley.capstone.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.tools.jconsole.JConsole;
+
 import welley.capstone.entities.Category;
 import welley.capstone.entities.Product;
 import welley.capstone.entities.Supplier;

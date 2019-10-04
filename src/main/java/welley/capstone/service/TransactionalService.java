@@ -1,6 +1,5 @@
 package welley.capstone.service;
 
-import sun.text.resources.ro.JavaTimeSupplementary_ro;
 import welley.capstone.entities.Category;
 import welley.capstone.entities.Product;
 import welley.capstone.entities.Supplier;
