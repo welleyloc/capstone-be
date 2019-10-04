@@ -1,34 +1,43 @@
-### Capstone dashboard back-end (Spring Boot + Angular CRUD)
+### Capstone dashboard back-end (Spring Boot/Batch + Angular CRUD)
 
-This is part 1 of my final project created for educational purposes only.
+This is part 1 of 2 of my final class project.
 
-Project completion ~2 wks for both Spring back-end and Angular front-end.
+The front-end repository is found here: [Angular front-end](https://github.com/welleyloc/capstone-fe)
 
-#### Services used
+Full stack project completion ~2 wks.
+
+### Services used
 * Sprint Boot, Batch, Data JPA, REST
 * H2 development database
 * Maven
 * Postman
-* Angular 8 with Bootstrap 4, Angular Materials table
+* Angular 8 with Bootstrap 4
+* Angular Materials table, dialog
 * Google Charts
 * Font Awesome
 
 (Maybe for later: mySQL migration if time permits, Spring Security)
 
-#### Current dashboard CRUD App Actions
+### Current dashboard CRUD App Actions
 
 | Entity | Sort | Get by Id / findAll | Put / Post / Delete | CascadeType
 |:---|:---|:---:|:---|:---|
-| **Product** | - table columns<br>- keyword filter | [x] | [x] action directly affects<br>product, category, supplier | child: PERSIST |
-| **Category** | - table columns<br>- keyword filter <br> - products| [x] | [x] action directly affects<br>product and category,<br>indirectly with supplier | parent: PERSIST, REFRESH, REMOVE, MERGE |
-| **Supplier** | - table columns<br>- keyword filter <br> - products | [x] | [x] action directly affects<br>product and supplier,<br>indirectly with category | parent: PERSIST, REFRESH, REMOVE, MERGE|
+| **Product** | - table columns<br>- keyword filter | [x] | [x] action directly affects<br>product, category, supplier | PERSIST |
+| **Category** | - table columns<br>- keyword filter <br> - products/stock| [x] | [x] action directly affects<br>product and category,<br>indirectly with supplier | PERSIST, REFRESH, REMOVE, MERGE |
+| **Supplier** | - table columns<br>- keyword filter <br> - products/stock | [x] | [x] action directly affects<br>product and supplier,<br>indirectly with category | PERSIST, REFRESH, REMOVE, MERGE|
 
-#### Biggest hair-pulling obstacles encountered, tackled, or deeply questioned
+<img src="https://github.com/welleyloc/capstone-be/blob/master/dashboard-preview.png?raw=true">
+
+### Work in progress
+
+* validation (nulls, more on form inputs, type)
+
+### Biggest hair-pulling obstacles encountered, tackled, or deeply questioned
 
 * Setting foreign keys and joining columns within a Spring Batch framework...with bi-directional parent-child relationships...
 * The best way to design Spring Batch code for the long run to read/write tables for three entities, and 2/3 are also maps.
 
-#### Work flow/major commits
+### Work flow/major commits
 
 - [x] Set up Spring Batch base code with reader/writer to create H2 database/console from spreadsheets and REST controllers.
 
@@ -54,7 +63,11 @@ Project completion ~2 wks for both Spring back-end and Angular front-end.
 
 - [ ]  Host on Heroku with ClearDB or some other methods.
 
-#### Remarks
+### Notes on live hosting
+
+My original goal was to host the front-end on Github pages and back-end on Heroku. However, while the RESTful APIs are coming through live, Batch failed to start, so the hosting problem may be specific to Batch. My demonstration of the app will be done locally.
+
+### Remarks
 
 Special thanks to the TTS class (extra thumbs up to Scott, Ricardo, Jonathan, Jordan, Ken, and Austin) for allowing me to pick your brains and dealing with me during my times of confusion. 
 I had no idea the challenges I was getting myself into, but because of everyone I was able to give my best shot at this problem.
