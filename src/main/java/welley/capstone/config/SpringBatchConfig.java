@@ -29,7 +29,6 @@ import welley.capstone.entities.Supplier;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.util.List;
 
 
 @Configuration
@@ -197,7 +196,7 @@ public class SpringBatchConfig implements BatchConfigurer {
     public JdbcBatchItemWriter<Category> jdbcCategoryBatchItemWriter() {
         JdbcBatchItemWriter<Category> writer = new JdbcBatchItemWriter<>();
         writer.setDataSource(this.dataSource);
-        writer.setSql("INSERT INTO category (category_id, categoryName) VALUES (:categoryId, :categoryName)");
+        writer.setSql("INSERT INTO category (category_id, category_name) VALUES (:categoryId, :categoryName)");
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
 
         System.out.println("JDBC CATEGORY WRITER COMPILED");
@@ -212,15 +211,11 @@ public class SpringBatchConfig implements BatchConfigurer {
     public JdbcBatchItemWriter<Supplier> jdbcSupplierBatchItemWriter() {
         JdbcBatchItemWriter<Supplier> writer = new JdbcBatchItemWriter<>();
         writer.setDataSource(this.dataSource);
-        writer.setSql("INSERT INTO supplier (supplier_id, supplierName) VALUES (:supplierId, :supplierName)");
+        writer.setSql("INSERT INTO supplier (supplier_id, supplier_name) VALUES (:supplierId, :supplierName)");
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
-
+        writer.afterPropertiesSet();
         System.out.println("JDBC SUPPLIER WRITER COMPILED");
-
-        List<Supplier> suppliers = this.supplierRepository.findAll();
-
-        System.out.println(suppliers);
-
+        
         return writer;
     }
 
