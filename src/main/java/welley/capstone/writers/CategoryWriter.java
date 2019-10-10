@@ -22,6 +22,7 @@ public class CategoryWriter implements ItemWriter<Category> {
     public void write(List<? extends Category> categories) throws Exception {
 
         System.out.println("Categories saved: " + categories);
+        System.out.println("HELLO!!!");
         categoryRepository.saveAll(categories);
 
     }

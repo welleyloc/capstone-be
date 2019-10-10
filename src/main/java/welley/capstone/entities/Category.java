@@ -4,20 +4,24 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="category")
+@Table(name = "category", schema = "public")
 public class Category {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private int categoryId;
 
     @Column(name = "category_name")
     private String categoryName;
 
-    @OneToMany(mappedBy = "category", cascade={CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE},fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<Product> productList;
 
-    public Category() {};
+    public Category() {
+    }
+
+    ;
 
     public Category(String categoryName) {
         this.categoryName = categoryName;
@@ -31,7 +35,9 @@ public class Category {
         this.categoryId = categoryId;
     }
 
-    public String getCategoryName() { return categoryName; }
+    public String getCategoryName() {
+        return categoryName;
+    }
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;

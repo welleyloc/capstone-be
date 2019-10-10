@@ -34,7 +34,7 @@ public class ProductWriter implements ItemWriter<Product> {
         // start filling in categories by foreign key:
         // loop over all the products
 
-//        System.out.println("start loop");
+        System.out.println("start loop");
 
         for (Product product : products) {
 //            System.out.println(product.getCategory());
@@ -68,6 +68,7 @@ public class ProductWriter implements ItemWriter<Product> {
         System.out.println("Products saved: " + products);
         productRepository.saveAll(products);
     }
+
 }
 
 

@@ -1,8 +1,6 @@
 package welley.capstone.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,13 +8,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Entity
-@Table(name = "PRODUCT")
+@Table(name = "product", schema = "public")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name="product_name")
     private String productName;
 
     @NotNull
@@ -31,10 +30,16 @@ public class Product {
     @JsonIgnoreProperties("productList")
     private Category category;
 
+    @Column(name="availability")
     private boolean availability;
+
+    @Column(name="full_price")
     private double fullPrice;
+
+    @Column(name="sale_price")
     private double salePrice;
 
+    @Column(name="discount_percent")
     private double discountPercent;
 
     public Product() {
