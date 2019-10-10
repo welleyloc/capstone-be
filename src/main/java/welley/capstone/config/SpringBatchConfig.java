@@ -204,9 +204,6 @@ public class SpringBatchConfig implements BatchConfigurer {
         return writer;
     }
 
-    @Autowired
-    SupplierRepository supplierRepository;
-
     @Bean
     public JdbcBatchItemWriter<Supplier> jdbcSupplierBatchItemWriter() {
         JdbcBatchItemWriter<Supplier> writer = new JdbcBatchItemWriter<>();
@@ -215,7 +212,7 @@ public class SpringBatchConfig implements BatchConfigurer {
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
         writer.afterPropertiesSet();
         System.out.println("JDBC SUPPLIER WRITER COMPILED");
-        
+
         return writer;
     }
 
