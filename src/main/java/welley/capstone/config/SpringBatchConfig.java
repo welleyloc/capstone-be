@@ -1,11 +1,13 @@
 package welley.capstone.config;
 
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.*;
+import org.springframework.batch.core.explore.JobExplorer;
+import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -15,12 +17,11 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import welley.capstone.dal.SupplierRepository;
 import welley.capstone.entities.Category;
 import welley.capstone.entities.Product;
@@ -33,7 +34,8 @@ import java.util.List;
 
 @Configuration
 @EnableBatchProcessing //need this annotation for JobLauncher bean definition
-public class SpringBatchConfig {
+@EnableTransactionManagement
+public class SpringBatchConfig implements BatchConfigurer {
 
     // source for postgres writers
     @Resource(name = "dataSource")
@@ -57,7 +59,7 @@ public class SpringBatchConfig {
                    JdbcBatchItemWriter<Category> jdbcCategoryBatchItemWriter,
                    JdbcBatchItemWriter<Supplier> jdbcSupplierBatchItemWriter
 
-                   ) {
+    ) {
 
         Step step1 = stepBuilderFactory.get("Products-File-Load")
                 .<Product, Product>chunk(50)
@@ -152,16 +154,31 @@ public class SpringBatchConfig {
     }
 
 
-    // Postgres configurations
+    // Postgres database configurations
 
-    @Bean
-    BatchConfigurer configurer(DataSource dataSource) {
-        return new DefaultBatchConfigurer(dataSource);
+    @Override
+    public JobRepository getJobRepository() throws Exception {
+        JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
+        factory.setDatabaseType("POSTGRES");
+        factory.setDataSource(this.dataSource);
+        factory.setTransactionManager(getTransactionManager());
+        factory.afterPropertiesSet();
+        return factory.getObject();
     }
 
-    @Bean
-    DataSourceTransactionManager config(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
+    @Override
+    public PlatformTransactionManager getTransactionManager() throws Exception {
+        return new DataSourceTransactionManager(this.dataSource);
+    }
+
+    @Override
+    public JobLauncher getJobLauncher() throws Exception {
+        return null;
+    }
+
+    @Override
+    public JobExplorer getJobExplorer() throws Exception {
+        return null;
     }
 
     @Bean
@@ -200,11 +217,10 @@ public class SpringBatchConfig {
 
         System.out.println("JDBC SUPPLIER WRITER COMPILED");
 
-        List<Supplier> suppliers = supplierRepository.findAll();
+        List<Supplier> suppliers = this.supplierRepository.findAll();
 
-        for (Supplier supplier : suppliers){
-            System.out.println("A supplier: " + supplier);
-        }
+        System.out.println(suppliers);
+
         return writer;
     }
 
